@@ -1,0 +1,13 @@
+.navLink {
+    padding: 10px 15px;
+    margin: 10px 15;
+    border-bottom: 1px solid gray;
+    color: gray;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: #444;
+        border-bottom: 1px solid #444;
+    }
+}
