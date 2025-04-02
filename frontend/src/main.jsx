@@ -1,22 +1,18 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home } from './pages/home';
-import { Login } from './pages/login';
-import { NotFound } from './pages/not-found';
-import { Header } from './components/header'; 
+import { BrowserRouter } from "react-router-dom";
+import { store } from './configure-store';
+import { Provider } from 'react-redux';
+import { App } from './App';
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </StrictMode>,
 )
