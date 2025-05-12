@@ -1,0 +1,36 @@
+.chat {
+    flex: 1
+}
+
+.textarea {
+    display: block;
+    width: 100%;
+    min-height: 400px;
+    border: none;
+    resize: none;
+    border-bottom: 1px solid #777;
+}
+.send-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+.message-field {
+    flex: 1;
+    display: block;
+    border: none;
+    padding: 10px;
+    margin: 0;
+    font-size: 16px;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+.send-button {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}

@@ -1,3 +1,16 @@
 .channels {
-    
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: stretch;
+    border-right: 1px solid #777;
+}
+article {
+    padding: 5px;
+    cursor: pointer;
+
+    &.active-channel {
+        background: #ccc;
+    }
 }

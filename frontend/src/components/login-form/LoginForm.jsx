@@ -4,11 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/auth.slice';
 import { authErrorSelector } from '../../selectors/auth.selectors';
 
-const FORM_TYPE = {
-    REG: 'registration',
-    LOGIN: 'login'
-}
-
 export const LoginForm = () => {
     const dispatch = useDispatch();
     const error = useSelector(authErrorSelector);
@@ -24,7 +19,7 @@ export const LoginForm = () => {
             >
             {({ isSubmitting }) => (
                 <Form>
-                    <Field type="login" name="login" />
+                    <Field type="login" name="username" />
                     <Field type="password" name="password" />
                     <button type='submit' disabled={isSubmitting}>
                         LogIn/SignUp

@@ -4,11 +4,7 @@ import { axiosInstance } from '../api/index';
 export const getChannels = createAsyncThunk(
     'channels/getChannels',
     async () => {
-        const response = await axiosInstance.get('/api/v1/channels', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        });
+        const response = await axiosInstance.get('/api/v1/channels');
 
         return response.data;
     }
@@ -16,12 +12,16 @@ export const getChannels = createAsyncThunk(
 
 const channelsAdapter = createEntityAdapter();
 
-const initialState = { isSubmitting: false, channels: [] };
+const initialState = { isSubmitting: false, channels: [], active: 0 };
 
 const channelsSlice = createSlice({
   name: 'channels',
   initialState: channelsAdapter.getInitialState(initialState),
-  reducers: {},
+  reducers: {
+    setActiveChannel(state, {payload}) {
+      state.active = payload
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getChannels.pending, (state) => {
@@ -29,8 +29,6 @@ const channelsSlice = createSlice({
         state.error = null;
       })
       .addCase(getChannels.fulfilled, (state, action) => {
-        console.log(action);
-        
         state.loadingStatus = 'fulfilled';
         state.error = null;
         state.channels = action.payload

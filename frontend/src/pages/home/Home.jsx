@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router'
 import './Home.css'
 import { useDispatch } from 'react-redux';
 import { getChannels } from '../../store/channels.slice';
+import { getMessages } from '../../store/messages.slice';
 import { ChannelList } from '../../components/channel-list';
+import { Chat } from '../../components/chat';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -15,14 +17,16 @@ export const Home = () => {
       navigate('/login')
     } else {
       dispatch(getChannels());
+      dispatch(getMessages());
     }
-  }, [])
+  })
 
   return (
     <>
       <h3>ChatReact</h3>
       <main>
         <ChannelList />
+        <Chat />
       </main>
     </>
   )

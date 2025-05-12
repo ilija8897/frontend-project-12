@@ -1,8 +1,10 @@
+import './ChannelList.css';
 
-export const Channel = ({ channel }) => {
-    console.log(channel);
-    
+export const Channel = ({ channel, active, handleClick }) => {
+  const onSetActiveChannel = () => {
+    handleClick(channel.id)
+  }
   return (
-    <article>{channel.name}</article>
+    <article onClick={onSetActiveChannel} className={active ? 'active-channel' : ''}>{channel.name}</article>
   )
 }
