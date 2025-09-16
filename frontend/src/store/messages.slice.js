@@ -11,7 +11,9 @@ export const getMessages = createAsyncThunk(
 );
 export const postMessages = createAsyncThunk(
     'messages/postMessages',
-    async () => {
+    async (payload) => {
+      console.log(payload);
+      
         const response = await axiosInstance.post('/api/v1/messages', { body: 'new message', channelId: '1', username: 'admin' });
 
         return response.data;

@@ -1,11 +1,13 @@
-import { combineSlices } from '@reduxjs/toolkit'
+import { combineReducers } from '@reduxjs/toolkit'
 
+import { appSlice } from './app.slice';
 import authSlice from './auth.slice';
-import channelsSlice from './channels.slice';
-import messagesSlice from './messages.slice';
+import { channelsApi } from './channels';
+import { messagesApi } from './messages';
 
-export const rootReducer = combineSlices({
+export const rootReducer = combineReducers({
+    app: appSlice.reducer,
     auth: authSlice.reducer,
-    channels: channelsSlice.reducer,
-    messages: messagesSlice.reducer,
+    channels: channelsApi.reducer,
+    messages: messagesApi.reducer,
 });

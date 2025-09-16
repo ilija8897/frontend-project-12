@@ -10,6 +10,12 @@
     resize: none;
     border-bottom: 1px solid #777;
 }
+
+.textarea p {
+    text-align: left;
+    padding: 5px 10px;
+    margin: 0;
+}
 .send-block {
     display: flex;
     flex-direction: row;

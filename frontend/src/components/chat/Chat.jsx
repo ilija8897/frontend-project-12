@@ -1,29 +1,42 @@
 import { useState } from 'react';
-import { postMessages, messagesSelector } from '../../store/messages.slice';
+import { getActiveChannel } from '../../store/app.slice';
+import { useGetMessagesQuery, useSendMessageMutation } from '../../store/messages';
+// import { useGetMessagesQuery, useSendMessageMutation } from '../../store/channels';
 import './Chat.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const Chat = () => {
-  const messagesData = useSelector(messagesSelector);
+  // const messagesData = useSelector(messagesSelector);
   const [message, setMessage] = useState('');
-  const dispatch = useDispatch();
+  const activeChannel = useSelector(getActiveChannel);
+  const { data, error, isLoading } = useGetMessagesQuery();
+  
+  const [ sendMessage ] = useSendMessageMutation();
 
-  const handleSendMessage = () => {
-    dispatch(postMessages({message}));
+  const handleSendMessage = async () => {
+    await sendMessage({ body: message, channelId: activeChannel, username: 'admin' });
+    setMessage('');
+    // dispatch(postMessages({message}));
   }
-  const handleChangeInput = () => {
-    setMessage();
-  }
+  const handleChangeInput = (e) => {
+    setMessage(e.target.value);
+  };
+  console.log(activeChannel);
+  // console.log(data);
+  
+  const messages = data && data.filter((message) => message.channelId === activeChannel).map((message) => <p key={`${message.body}${message.id}`}>{message.body}</p>)
 
-  const messages = messagesData.map((message, id) => <p key={`${message.name}${id}`}>{message.name}</p>)
-
+  if (error) return <p>Loading error.</p>
+  if (isLoading) return <p>Loading...</p>
+  // console.log(messages);
+  
   return (
     <div className='chat'>
     <div className='textarea'>
         {messages}
     </div>
     <div className="send-block">
-    <input className='message-field' onChange={handleChangeInput} type="text" placeholder='message'/>
+    <input className='message-field' onChange={handleChangeInput} type="text" placeholder='message' value={message}/>
     <button className='send-button' onClick={handleSendMessage}>send</button>
     </div>
     </div>
