@@ -5,8 +5,8 @@ import { channelsApi } from './store/channels';
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (defMiddlewares) => defMiddlewares().concat(
+  middleware: (defMiddlewares) => defMiddlewares().concat([
     messagesApi.middleware,
     channelsApi.middleware
-  )
+  ])
 });

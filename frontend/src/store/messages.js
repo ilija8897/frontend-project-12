@@ -11,6 +11,7 @@ export const messagesApi = createApi({
         return headers
         },
     }),
+    tagTypes: ['Message'],
     endpoints: builder => ({
         getMessages: builder.query({
         query: () => '',
@@ -21,21 +22,18 @@ export const messagesApi = createApi({
             method: 'POST',
             body: message,
         }),
-        invalidatesTags: ['Message']
         }),
         deleteMessage: builder.mutation({
             query: id => ({
                 url: id,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['Message']
         }),
         updateMessage: builder.mutation({
         query: message => ({
             method: 'PATCH',
             body: message,
         }),
-        invalidatesTags: ['Message']
         }),
     }),
 });

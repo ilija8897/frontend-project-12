@@ -1,0 +1,8 @@
+.channelForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #77777770;
+    padding: 15px;
+}

@@ -25,12 +25,7 @@ const initialState = { isSubmitting: false };
 const authSlice = createSlice({
   name: 'auth',
   initialState: authAdapter.getInitialState(initialState),
-  reducers: {
-    // login(state, { payload }) {
-    //   state.isSubmitting = true;
-    //   axiosInstance.post('/api/v1/login', payload.values)
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {

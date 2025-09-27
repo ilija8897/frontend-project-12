@@ -8,7 +8,7 @@ export const LoginForm = () => {
     const dispatch = useDispatch();
     const error = useSelector(authErrorSelector);
     const handleSubmit = async (values) => {
-        dispatch(login(values)).unwrap()
+        dispatch(login(values))
     }
 
     return (

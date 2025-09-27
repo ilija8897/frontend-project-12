@@ -6,6 +6,29 @@
     align-items: stretch;
     border-right: 1px solid #777;
 }
+.addChannelButton {
+    background: #ccc;
+    color: #777;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+
+    &:hover {
+        background: #777;
+        color: #ccc;
+    }
+}
+.editButton {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    border: 0;
+
+    &:hover {
+        color: #ccc;
+        background: #777;
+    }
+}
 article {
     padding: 5px;
     cursor: pointer;

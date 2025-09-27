@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { getActiveChannel } from '../../store/app.slice';
+import { getActiveChannel, modalSelector, toggleModal } from '../../store/app.slice';
 import { useGetMessagesQuery, useSendMessageMutation } from '../../store/messages';
 // import { useGetMessagesQuery, useSendMessageMutation } from '../../store/channels';
+import { ChannelForm } from '../channel-form'
+// import { setActiveChannel, getActiveChannel } from '../../store/app.slice'
 import './Chat.css';
 import { useSelector } from 'react-redux';
 
@@ -9,6 +11,7 @@ export const Chat = () => {
   // const messagesData = useSelector(messagesSelector);
   const [message, setMessage] = useState('');
   const activeChannel = useSelector(getActiveChannel);
+  const { isOpen: isShowChannelForm } = useSelector(modalSelector);
   const { data, error, isLoading } = useGetMessagesQuery();
   
   const [ sendMessage ] = useSendMessageMutation();
@@ -39,6 +42,7 @@ export const Chat = () => {
     <input className='message-field' onChange={handleChangeInput} type="text" placeholder='message' value={message}/>
     <button className='send-button' onClick={handleSendMessage}>send</button>
     </div>
+    {isShowChannelForm && <ChannelForm handleCancel={() => toggleModal(false)} />}
     </div>
   )
 }
