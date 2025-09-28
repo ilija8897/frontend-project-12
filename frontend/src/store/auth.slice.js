@@ -3,10 +3,16 @@ import { axiosInstance } from '../api/index';
 
 export const login = createAsyncThunk(
     'auth/login',
-    async (credentials) => {
+    async (credentials, { rejectWithValue }) => {
+      try {
         const response = await axiosInstance.post('/api/v1/login', credentials);
-
+        console.log(response);
+        
         return response.data;
+        
+      } catch (error) {
+        return rejectWithValue(error)
+      }
     }
 );
 
@@ -43,7 +49,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loadingStatus = 'rejected';
-        state.error = action.error.message;
+        state.error = action;
       })
       .addCase(signup.fulfilled, (state, action) => {
         if (action.payload.token) {

@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../../store/auth.slice';
 import * as yup from 'yup';
 import { authErrorSelector } from '../../selectors/auth.selectors';
+import { useTranslation } from 'react-i18next';
 
 export const RegistrationForm = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const error = useSelector(authErrorSelector);
     const handleSubmit = async (values) => {
@@ -27,14 +29,14 @@ export const RegistrationForm = () => {
             >
             {({values, isSubmitting }) => (
                 <Form>
-                    <Field type="login" name="login" placeholder='login' value={values.login} />
-                    <Field type="password" name="password" placeholder='type password' value={values.password} />
-                    <Field type="password" name="repeatPassword" placeholder='repeat password' value={values.repeatPassword} />
+                    <Field type="login" name="login" placeholder={t('signup.name')} value={values.login} />
+                    <Field type="password" name="password" placeholder={t('signup.password')} value={values.password} />
+                    <Field type="password" name="repeatPassword" placeholder={t('signup.repeatPassword')} value={values.repeatPassword} />
                     <ErrorMessage name="login" />
                     <ErrorMessage name="password" />
                     <ErrorMessage name="repeatPassword" />
                     <button type='submit' disabled={isSubmitting}>
-                        Create account
+                        {t('signup.button')}
                     </button>
                     {error && <p>{error}</p>}
                 </Form>

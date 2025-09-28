@@ -5,9 +5,11 @@ import { useAddChannelMutation, useEditChannelMutation, useGetChannelsQuery } fr
 import { modalSelector, toggleModal } from '../../store/app.slice'; 
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 
 export const ChannelForm = () => {
+    const { t } = useTranslation();
     const disatch = useDispatch();
     const { data } = useGetChannelsQuery();
     const { modalType, editedChannel } = useSelector(modalSelector);
@@ -28,8 +30,8 @@ export const ChannelForm = () => {
     }
 
     const titleMap = {
-        edit: 'Edit Channel',
-        create: 'Create new channel',
+        edit: t('modals.editChannel'),
+        create: t('modals.createChannel'),
     }
 
     return (
@@ -62,13 +64,14 @@ export const ChannelForm = () => {
                         onBlur={handleBlur}
                         value={values.name}
                         autoFocus={true}
+                        placeholder={t('modals.editChannelName')}
                     />
                     {errors.name && touched.name && errors.name}
                     <button type="submit" disabled={isSubmitting}>
-                        Create
+                        {t('modals.sendButton')}
                     </button>
                     <button type="submit" onClick={onClose}>
-                        Cancel
+                        {t('modals.cancel')}
                     </button>
                 </form>
             )}
