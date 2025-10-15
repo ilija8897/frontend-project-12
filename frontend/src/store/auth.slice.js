@@ -43,6 +43,7 @@ const authSlice = createSlice({
             localStorage.setItem('token', action.payload.token);
         }
         state.loadingStatus = 'fulfilled';
+        state.username = action.payload.username;
         state.error = null;
 
         window.location.href = '/';
@@ -63,7 +64,10 @@ const authSlice = createSlice({
         state.loadingStatus = 'rejected';
         state.error = action.error.message;
       })
+    },
+    selectors: {
+        getUserSelector: (state) => state.username,
     }
 })
-
+export const { getUserSelector } = authSlice.selectors;
 export default authSlice;

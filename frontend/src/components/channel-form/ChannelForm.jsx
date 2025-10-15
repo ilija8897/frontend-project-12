@@ -7,6 +7,8 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
+import filter from 'leo-profanity';
+
 
 export const ChannelForm = () => {
     const { t } = useTranslation();
@@ -26,7 +28,7 @@ export const ChannelForm = () => {
         addChannel({ name: values.name });
     }
     const handleEditChannel = (values) => {
-        editChannel({id: editedChannel.id, name: values.name});
+        editChannel({id: editedChannel.id, name: filter.clean(values.name)});
     }
 
     const titleMap = {
