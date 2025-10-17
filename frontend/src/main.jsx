@@ -11,7 +11,6 @@ import { I18nextProvider, initReactI18next } from 'react-i18next'
 
   const i18n = i18next.createInstance()
 
-  // i18n инициализируется асинхронно
   await i18n
     .use(initReactI18next)
     .init({

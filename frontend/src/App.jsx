@@ -10,6 +10,7 @@ import { messagesApi } from "./store/messages";
 import { channelsApi } from "./store/channels";
 import { setActiveChannel } from "./store/app.slice";
 import { ToastContainer, toast } from 'react-toastify';
+import { Provider, ErrorBoundary } from '@rollbar/react';
 
 export const App = () => {
     const socket = io();
@@ -42,27 +43,36 @@ export const App = () => {
         }))
     });
 
+    const rollbarConfig = {
+        accessToken: '9eeb59c07ca24f1b8580ae6c6668e57c',
+        captureUncaught: true,
+        captureUnhandledRejections: true,
+        environment: 'testenv',
+    };
+
     return (
-        <>
-            <Header />
-            <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Registration />} />
-            <Route path="*" element={<NotFound />} />
-            </Routes>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
-        </>
+        <Provider config={rollbarConfig}>
+            <ErrorBoundary>
+                <Header />
+                <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Registration />} />
+                <Route path="*" element={<NotFound />} />
+                </Routes>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+            </ErrorBoundary>
+        </Provider>
     )
 }
