@@ -39,6 +39,11 @@ const ru = {
       inputPlaceholder: 'Введите сообщение...',
       loading: 'loading'
     },
+    notifications: {
+      channelRenamed: 'Канал переименован',
+      channelDeleted: 'Канал удален',
+      channelCreated: 'Канал создан'
+    },
   },
 }
 

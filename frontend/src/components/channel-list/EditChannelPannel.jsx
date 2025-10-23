@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 export const EditChannelPannel = ({ channel }) => {
     const dispatch = useDispatch();
     const [ deleteChannel ] = useDeleteChannelMutation();
-    // const [ editChannel ] = useEditChannelMutation();
     const handleEditChannel = (e) => {
         e.stopPropagation();
         dispatch(toggleModal({ isOpen: true, modalType: 'edit', editedChannel: channel }));

@@ -11,8 +11,10 @@ import { channelsApi } from "./store/channels";
 import { setActiveChannel } from "./store/app.slice";
 import { ToastContainer, toast } from 'react-toastify';
 import { Provider, ErrorBoundary } from '@rollbar/react';
+import { useTranslation } from 'react-i18next';
 
 export const App = () => {
+    const { t } = useTranslation();
     const socket = io();
     socket.on('newMessage', (payload) => {
         store.dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draftMessages) => {
@@ -21,14 +23,14 @@ export const App = () => {
 
     });
     socket.on('newChannel', (payload) => {
-        toast("Канал создан");
+        toast(t('notifications.channelCreated'));
         store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
             draftChannels.push(payload);
         }))
         store.dispatch(setActiveChannel(payload.id))
     });
     socket.on('removeChannel', (payload) => {
-        toast("Канал удален");
+        toast(t('notifications.channelDeleted'));
         store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
             draftChannels.push(payload);
         }))
@@ -36,7 +38,7 @@ export const App = () => {
         store.dispatch(setActiveChannel('1'))
     });
     socket.on('renameChannel', (payload) => {
-        toast("Канал переименован");
+        toast(t('notifications.channelRenamed'));
         store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
             const channel = draftChannels.find(item => item.id === payload.id)
             channel.name = payload.name
