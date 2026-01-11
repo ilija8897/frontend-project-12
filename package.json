@@ -4,9 +4,12 @@
   "description": "[![Actions Status](https://github.com/ilija8897/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ilija8897/frontend-project-12/actions)",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build --prefix frontend",
-    "postinstall": "cd frontend && npm ci",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "start": "npx start-server -s ./dist",
+    "build": "vite build",
+    "lint": "eslint .",
+    "serve": "vite preview"
   },
   "author": "",
   "license": "ISC",
@@ -18,9 +21,23 @@
     "react-i18next": "^16.0.0",
     "rollbar": "^2.26.4",
     "socket.io-client": "^4.8.1",
-    "yup": "^1.7.0"
-  },
-  "devDependencies": {
-    "i18n": "^0.15.2"
+    "yup": "^1.7.0",
+    "@reduxjs/toolkit": "^2.6.1",
+    "axios": "^1.8.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "react-router": "^6.30.0",
+    "react-router-dom": "^6.30.0",
+    "react-toastify": "^11.0.5",
+    "@eslint/js": "^9.21.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "vite": "^6.2.0"
   }
 }
