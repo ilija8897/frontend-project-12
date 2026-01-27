@@ -25,14 +25,13 @@ export const MessageForm = ({ activeChannel }) => {
         initialValues={{ message: '' }}
         validationSchema={validationSchema}
         onSubmit={async (values, { resetForm }) => {
-          console.log('Form submitted with values:', values);
           
             const message = { body: filter.clean(values.message), channelId: activeChannel, username };
-            console.log('Sending message:', message);
             
             try {
               const result = await sendMessage(message).unwrap();
-              console.log('Message sent successfully:', result);
+              console.log(result);
+              
               resetForm();
             } catch (err) {
               console.error('Failed to send message:', err);
@@ -54,8 +53,9 @@ export const MessageForm = ({ activeChannel }) => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.message}
+                    aria-label={t('chat.newMessageLabel')}
                     autoFocus={true}
-                    placeholder={'сообщение'}
+                    placeholder={t('chat.inputPlaceholder')}
                 />
                 {errors.message && errors.message}
                 <button type="submit" disabled={isSubmitting}>

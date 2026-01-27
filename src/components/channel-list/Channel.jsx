@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { EditChannelPannel } from './EditChannelPannel';
 import './ChannelList.css';
+import { useTranslation } from 'react-i18next';
+
 
 export const Channel = ({ channel, active, handleClick }) => {
+  const { t } = useTranslation();
   const [ isVisibleEditPannel, setVisibilityEditPannel ] = useState(false);
-  const onSetActiveChannel = () => {
+  const onSetActiveChannel = (e) => {
+    e.stopPropagation();
     handleClick(channel.id)
   }
   const handleEdit = (e) => {
@@ -12,10 +16,12 @@ export const Channel = ({ channel, active, handleClick }) => {
     setVisibilityEditPannel((value) => !value);
   }
   return (
-    <article onClick={onSetActiveChannel} className={active ? 'active-channel' : ''}>
+    <div>
+    <button onClick={onSetActiveChannel} className={active ? 'active-channel' : ''}>
       #{channel.name}
-      <button className='editButton' onClick={handleEdit}>&#9881;</button>
+    </button>
+      <button className='editButton' onClick={handleEdit}>{t('channels.channelEdit')}</button>
       {isVisibleEditPannel && <EditChannelPannel channel={channel} />}
-    </article>
+      </div>
   )
 }

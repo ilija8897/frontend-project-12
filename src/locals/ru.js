@@ -4,7 +4,7 @@ const ru = {
         hexletChat: 'Hexlet Chat',
         Home: 'Home',
         LogIn: 'LogIn',
-        Registration: 'Registration',
+        Registration: 'Регистрация',
         logout: 'Выйти',
     },
     login: {
@@ -27,16 +27,22 @@ const ru = {
       header: 'Регистрация',
     },
     modals: {
-      createChannel: 'Добавить канал',
+      channelLengthError: 'От 3 до 20 символов',
       required: 'Обязательное поле',
       cancel: 'Отменить',
       sendButton: 'Отправить',
+      editChannelName: 'Имя канала',
+    },
+    channels: {
+      remove: 'Удалить',
+      createChannel: 'Добавить канал',
+      channelEdit: 'Управление каналом',
       editChannel: 'Переименовать канал',
-      editChannelName: 'Новое имя канала',
     },
     chat: {
       button: 'Отправить',
       inputPlaceholder: 'Введите сообщение...',
+      newMessageLabel: 'Новое сообщение',
       loading: 'loading'
     },
     notifications: {

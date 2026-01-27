@@ -26,8 +26,10 @@ export const LoginForm = () => {
             >
             {({ isSubmitting }) => (
                 <Form>
-                    <Field type="login" name="username" placeholder={t('login.name')} />
-                    <Field type="password" name="password" placeholder={t('login.password')} />
+                    <label htmlFor="username">{t('login.name')}</label>
+                    <Field type="login" id="username" name="username" placeholder={t('login.name')} />
+                    <label htmlFor="password">{t('login.password')}</label>
+                    <Field type="password" id="password" name="password" placeholder={t('login.password')} />
                     <button type='submit' disabled={isSubmitting}>
                         {t('login.button')}
                     </button>

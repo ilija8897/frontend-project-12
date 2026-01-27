@@ -7,7 +7,7 @@ export const Header = () => {
   const { t } = useTranslation()
   return (
       <header>
-        <h3 className='logo'><Link to={'/'} end>{t('hexletChat')}</Link></h3>
+        <h3 className='logo'><Link to={'/'} end>{t('nav.hexletChat')}</Link></h3>
         <Nav />
       </header>
   )

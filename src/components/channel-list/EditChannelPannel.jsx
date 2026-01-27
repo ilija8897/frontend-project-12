@@ -2,8 +2,10 @@ import { toggleModal } from '../../store/app.slice';
 import { useDeleteChannelMutation } from '../../store/channels';
 import { messagesApi } from '../../store/messages';
 import { useDispatch } from 'react-redux';
-
+import { useTranslation } from 'react-i18next';
 export const EditChannelPannel = ({ channel }) => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
     const [ deleteChannel ] = useDeleteChannelMutation();
     const handleEditChannel = (e) => {
@@ -21,8 +23,8 @@ export const EditChannelPannel = ({ channel }) => {
     }
     return (
         <div>
-        <button className='editButton' onClick={handleEditChannel}>&#9998;</button>
-        <button className='editButton' disabled={!channel.removable} onClick={handleDeleteChannel}>&#128465;</button>
+        <button className='editButton' onClick={handleEditChannel}>{t('channels.editChannel')}</button>
+        <button className='editButton' disabled={!channel.removable} onClick={handleDeleteChannel}>{t('channels.remove')}</button>
         </div>
     )
 }

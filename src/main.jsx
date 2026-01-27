@@ -9,12 +9,14 @@ import { App } from './App';
 import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 
+const init = async() => {
   const i18n = i18next.createInstance()
 
   await i18n
     .use(initReactI18next)
     .init({
       resources: locals,
+      lng: 'ru',
       fallbackLng: 'ru',
     })
 
@@ -29,3 +31,6 @@ createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </StrictMode>,
 )
+}
+
+init()

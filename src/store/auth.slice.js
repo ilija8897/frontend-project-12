@@ -18,9 +18,13 @@ export const login = createAsyncThunk(
 
 export const signup = createAsyncThunk(
     'auth/signup',
-    async (credentials) => {
+    async (credentials, { rejectWithValue }) => {
+      try {
         const response = await axiosInstance.post('/api/v1/signup', credentials)
         return response.data;
+       } catch (error) {
+        return rejectWithValue(error)
+      }
     }
 );
 
@@ -62,7 +66,9 @@ const authSlice = createSlice({
       })
       .addCase(signup.rejected, (state, action) => {
         state.loadingStatus = 'rejected';
-        state.error = action.error.message;
+        console.log(action);
+        
+        state.error = { status: action.payload.status, message: action.error.message };
       })
     },
     selectors: {

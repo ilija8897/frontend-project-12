@@ -15,9 +15,10 @@ export const RegistrationForm = () => {
     }
 
     let registrationSchema = yup.object().shape({
-        login: yup.string().required().min(3).max(20),
-        password: yup.string().required().min(6),
-        repeatPassword: yup.string().required().min(6).test('repeatPassword', 'signup.mustMatch', (value, context) => value === context.parent.password),
+        login: yup.string().required(t('signup.required')).min(3, t('signup.nameLengthError')).max(20, t('signup.nameLengthError')),
+        password: yup.string().required(t('signup.required')).min(6, t('signup.lengthError')),
+        // repeatPassword: yup.string().required().min(6).test('signup.repeatPassword', 'signup.mustMatch', (value, context) => value === context.parent.password),
+        repeatPassword: yup.string().test('repeatPassword', t('signup.notMatch'), (value, context) => value === context.parent.password),
     });
 
     return (
@@ -29,16 +30,21 @@ export const RegistrationForm = () => {
             >
             {({values, isSubmitting }) => (
                 <Form>
-                    <Field type="login" name="login" placeholder={t('signup.name')} value={values.login} />
-                    <Field type="password" name="password" placeholder={t('signup.password')} value={values.password} />
-                    <Field type="password" name="repeatPassword" placeholder={t('signup.repeatPassword')} value={values.repeatPassword} />
+                    <label htmlFor="login">{t('signup.name')}</label>
+                    <Field type="login" id="login" name="login" placeholder={t('signup.name')} value={values.login} />
+
+                    <label htmlFor="password">{t('signup.password')}</label>
+                    <Field type="password" id="password" name="password" placeholder={t('signup.password')} value={values.password} />
+
+                    <label htmlFor="repeatPassword">{t('signup.repeatPassword')}</label>
+                    <Field type="password" id="repeatPassword" name="repeatPassword" placeholder={t('signup.repeatPassword')} value={values.repeatPassword} />
                     <ErrorMessage name="login" />
                     <ErrorMessage name="password" />
                     <ErrorMessage name="repeatPassword" />
                     <button type='submit' disabled={isSubmitting}>
                         {t('signup.button')}
                     </button>
-                    {error && <p>{error}</p>}
+                    {error && <p>{error.status === 409 ? t('signup.alreadyExists') : error}</p>}
                 </Form>
                 
             )}

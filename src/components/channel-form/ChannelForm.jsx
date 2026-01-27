@@ -22,18 +22,18 @@ export const ChannelForm = () => {
     }
 
     let channelSchema = yup.object().shape({
-        name: yup.string().required().min(3).max(20).notOneOf(data.map(channel => channel.name)),
+        name: yup.string().required().min(3, t('modals.channelLengthError')).max(20, t('modals.channelLengthError')).notOneOf(data.map(channel => channel.name)),
     });
     const handleAddChannel = (values) => {
-        addChannel({ name: values.name });
+        addChannel({ name: filter.clean(values.name) });
     }
     const handleEditChannel = (values) => {
         editChannel({id: editedChannel.id, name: filter.clean(values.name)});
     }
 
     const titleMap = {
-        edit: t('modals.editChannel'),
-        create: t('modals.createChannel'),
+        edit: t('channels.editChannel'),
+        create: t('channels.createChannel'),
     }
 
     return (
@@ -59,9 +59,11 @@ export const ChannelForm = () => {
                 isSubmitting,
             }) => (
                 <form onSubmit={handleSubmit}>
+                    <label htmlFor="channelName">{t('modals.editChannelName')}</label>
                     <input
                         type="text"
                         name="name"
+                        id="channelName"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.name}
