@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import './Home.css'
-import { ChannelList } from '../../components/channel-list';
-import { Chat } from '../../components/chat';
+import { ChannelList } from '../../components/channel-list'
+import { Chat } from '../../components/chat'
 
 export const Home = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token')
     if (!token) {
       navigate('/login')
     }
@@ -24,4 +24,3 @@ export const Home = () => {
     </>
   )
 }
-

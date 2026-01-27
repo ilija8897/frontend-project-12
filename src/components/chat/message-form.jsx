@@ -11,9 +11,8 @@ export const MessageForm = ({ activeChannel }) => {
   const { t } = useTranslation()
   const username = useSelector(getUserSelector)
 
-    const [ sendMessage, { data, isLoading, error } ] = useSendMessageMutation(); 
-    console.log('sendMessage result:', { data, isLoading, error });
-    
+  const [sendMessage] = useSendMessageMutation()
+
   const validationSchema = yup.object().shape({
     message: yup
       .string()
@@ -22,47 +21,48 @@ export const MessageForm = ({ activeChannel }) => {
 
   return (
     <Formik
-        initialValues={{ message: '' }}
-        validationSchema={validationSchema}
-        onSubmit={async (values, { resetForm }) => {
-          console.log('Form submitted with values:', values);
-          
-            const message = { body: filter.clean(values.message), channelId: activeChannel, username };
-            console.log('Sending message:', message);
-            
-            try {
-              const result = await sendMessage(message).unwrap();
-              console.log('Message sent successfully:', result);
-              resetForm();
-            } catch (err) {
-              console.error('Failed to send message:', err);
-            }
-        }}
-        >
-        {({
-            values,
-            errors,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-        }) => (
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="message"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.message}
-                    autoFocus={true}
-                    placeholder={'сообщение'}
-                />
-                {errors.message && errors.message}
-                <button type="submit" disabled={isSubmitting}>
-                    {t('modals.sendButton')}
-                </button>
-            </form>
-        )}
+      initialValues={{ message: '' }}
+      validationSchema={validationSchema}
+      onSubmit={async (values, { resetForm }) => {
+        const message = { body: filter.clean(values.message), channelId: activeChannel, username }
+        console.log('Sending message:', message)
+
+        try {
+          const result = await sendMessage(message).unwrap()
+          console.log('Server response:', result)
+
+          resetForm()
+        }
+        catch (err) {
+          console.error('Failed to send message:', err)
+        }
+      }}
+    >
+      {({
+        values,
+        errors,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+      }) => (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="message"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.message}
+            aria-label={t('chat.newMessageLabel')}
+            autoFocus={true}
+            placeholder={t('chat.inputPlaceholder')}
+          />
+          {errors.message && errors.message}
+          <button type="submit" disabled={isSubmitting}>
+            {t('modals.sendButton')}
+          </button>
+        </form>
+      )}
     </Formik>
   )
 }

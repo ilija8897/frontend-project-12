@@ -1,32 +1,40 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit'
-import { axiosInstance } from '../api/index';
+import { axiosInstance } from '../api/index'
 
 export const login = createAsyncThunk(
-    'auth/login',
-    async (credentials, { rejectWithValue }) => {
-      try {
-        const response = await axiosInstance.post('/api/v1/login', credentials);
-        console.log(response);
-        
-        return response.data;
-        
-      } catch (error) {
-        return rejectWithValue(error)
-      }
+  'auth/login',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post('/api/v1/login', credentials)
+      console.log(response)
+
+      return response.data
     }
-);
+    catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
 
 export const signup = createAsyncThunk(
-    'auth/signup',
-    async (credentials) => {
-        const response = await axiosInstance.post('/api/v1/signup', credentials)
-        return response.data;
+  'auth/signup',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post('/api/v1/signup', credentials)
+      return response.data
     }
-);
+    catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
 
-const authAdapter = createEntityAdapter();
+const authAdapter = createEntityAdapter()
 
-const initialState = { isSubmitting: false };
+const initialState = {
+  isSubmitting: false,
+  username: localStorage.getItem('username') || null,
+}
 
 const authSlice = createSlice({
   name: 'auth',
@@ -35,39 +43,50 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
-        state.loadingStatus = 'loading';
-        state.error = null;
+        state.loadingStatus = 'loading'
+        state.error = null
       })
       .addCase(login.fulfilled, (state, action) => {
-        if (action.payload.token) {
-            localStorage.setItem('token', action.payload.token);
-        }
-        state.loadingStatus = 'fulfilled';
-        state.username = action.payload.username;
-        state.error = null;
+        console.log('login', action)
 
-        window.location.href = '/';
+        if (action.payload.token) {
+          localStorage.setItem('token', action.payload.token)
+        }
+        if (action.payload.username) {
+          localStorage.setItem('username', action.payload.username)
+        }
+        state.loadingStatus = 'fulfilled'
+        state.username = action.payload.username
+        state.error = null
+
+        window.location.href = '/'
       })
       .addCase(login.rejected, (state, action) => {
-        state.loadingStatus = 'rejected';
-        state.error = action;
+        state.loadingStatus = 'rejected'
+        state.error = action
       })
       .addCase(signup.fulfilled, (state, action) => {
         if (action.payload.token) {
-            localStorage.setItem('token', action.payload.token);
+          localStorage.setItem('token', action.payload.token)
         }
-        state.loadingStatus = 'fulfilled';
-        state.error = null;
-        window.location.href = '/';
+        if (action.payload.username) {
+          localStorage.setItem('username', action.payload.username)
+        }
+        state.loadingStatus = 'fulfilled'
+        state.username = action.payload.username
+        state.error = null
+        window.location.href = '/'
       })
       .addCase(signup.rejected, (state, action) => {
-        state.loadingStatus = 'rejected';
-        state.error = action.error.message;
+        state.loadingStatus = 'rejected'
+        console.log(action)
+
+        state.error = { status: action.payload.status, message: action.error.message }
       })
-    },
-    selectors: {
-        getUserSelector: (state) => state.username,
-    }
+  },
+  selectors: {
+    getUserSelector: state => state.username,
+  },
 })
-export const { getUserSelector } = authSlice.selectors;
-export default authSlice;
+export const { getUserSelector } = authSlice.selectors
+export default authSlice

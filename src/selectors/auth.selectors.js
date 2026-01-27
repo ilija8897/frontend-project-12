@@ -1,3 +1,3 @@
 export const authErrorSelector = (state) => {
-    return state.auth.error;
+  return state.auth.error
 }

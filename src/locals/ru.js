@@ -1,11 +1,11 @@
 const ru = {
   translation: {
     nav: {
-        hexletChat: 'Hexlet Chat',
-        Home: 'Home',
-        LogIn: 'LogIn',
-        Registration: 'Registration',
-        logout: 'Выйти',
+      hexletChat: 'Hexlet Chat',
+      Home: 'Home',
+      LogIn: 'LogIn',
+      Registration: 'Регистрация',
+      logout: 'Выйти',
     },
     login: {
       name: 'Ваш ник',
@@ -27,22 +27,30 @@ const ru = {
       header: 'Регистрация',
     },
     modals: {
-      createChannel: 'Добавить канал',
+      channelLengthError: 'От 3 до 20 символов',
       required: 'Обязательное поле',
       cancel: 'Отменить',
       sendButton: 'Отправить',
+      editChannelName: 'Имя канала',
+    },
+    channels: {
+      remove: 'Удалить',
+      createChannel: 'Добавить канал',
+      channelEdit: 'Управление каналом',
       editChannel: 'Переименовать канал',
-      editChannelName: 'Новое имя канала',
+      deleteChannel: 'Удалить канал',
+      buttonModal: 'Подтвердить',
     },
     chat: {
       button: 'Отправить',
       inputPlaceholder: 'Введите сообщение...',
-      loading: 'loading'
+      newMessageLabel: 'Новое сообщение',
+      loading: 'loading',
     },
     notifications: {
       channelRenamed: 'Канал переименован',
-      channelDeleted: 'Канал удален',
-      channelCreated: 'Канал создан'
+      channelDeleted: 'Канал удалён',
+      channelCreated: 'Канал создан',
     },
   },
 }

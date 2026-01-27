@@ -1,1 +1,1 @@
-export { ChannelForm } from './ChannelForm';
+export { ChannelForm } from './ChannelForm'

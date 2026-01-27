@@ -1,6 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
+  "type": "module",
   "description": "[![Actions Status](https://github.com/ilija8897/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ilija8897/frontend-project-12/actions)",
   "main": "index.js",
   "scripts": {
@@ -38,6 +39,12 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+        "@eslint/compat": "^1.2.8",
+    "@eslint/js": "^9.25.0",
+    "@playwright/test": "^1.38.0",
+    "@stylistic/eslint-plugin": "^4.2.0",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react": "^7.37.5"
   }
 }

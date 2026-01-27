@@ -1,8 +1,13 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export const axiosInstance = axios.create({
-    timeout: 30000,
-    headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }
+  timeout: 30000,
+})
+
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
 })
