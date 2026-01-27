@@ -12,40 +12,50 @@ import { setActiveChannel } from "./store/app.slice";
 import { ToastContainer, toast } from 'react-toastify';
 import { Provider, ErrorBoundary } from '@rollbar/react';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 export const App = () => {
     const { t } = useTranslation();
-    const socket = io();
-    socket.on('newMessage', (payload) => {
-        console.log('newMessage', payload);
-        
-        store.dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draftMessages) => {
-            draftMessages.push(payload)
-        }))
 
-    });
-    socket.on('newChannel', (payload) => {
-        toast(t('notifications.channelCreated'));
-        store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
-            draftChannels.push(payload);
-        }))
-        store.dispatch(setActiveChannel(payload.id))
-    });
-    socket.on('removeChannel', (payload) => {
-        toast(t('notifications.channelDeleted'));
-        store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
-            draftChannels.push(payload);
-        }))
+    useEffect(() => {
+        const socket = io();
 
-        store.dispatch(setActiveChannel('1'))
-    });
-    socket.on('renameChannel', (payload) => {
-        toast(t('notifications.channelRenamed'));
-        store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
-            const channel = draftChannels.find(item => item.id === payload.id)
-            channel.name = payload.name
-        }))
-    });
+        socket.on('newMessage', (payload) => {
+            console.log('newMessage', payload);
+            
+            store.dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draftMessages) => {
+                draftMessages.push(payload)
+            }))
+        });
+
+        socket.on('newChannel', (payload) => {
+            toast(t('notifications.channelCreated'));
+            store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+                draftChannels.push(payload);
+            }))
+            store.dispatch(setActiveChannel(payload.id))
+        });
+
+        socket.on('removeChannel', (payload) => {
+            toast(t('notifications.channelDeleted'));
+            store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+                draftChannels.push(payload);
+            }))
+            store.dispatch(setActiveChannel('1'))
+        });
+
+        socket.on('renameChannel', (payload) => {
+            toast(t('notifications.channelRenamed'));
+            store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+                const channel = draftChannels.find(item => item.id === payload.id)
+                channel.name = payload.name
+            }))
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, [t]);
 
     const rollbarConfig = {
         accessToken: '9eeb59c07ca24f1b8580ae6c6668e57c',

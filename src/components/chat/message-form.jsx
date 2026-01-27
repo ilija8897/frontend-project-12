@@ -11,8 +11,8 @@ export const MessageForm = ({ activeChannel }) => {
   const { t } = useTranslation()
   const username = useSelector(getUserSelector)
 
-    const [ sendMessage, { data } ] = useSendMessageMutation(); 
-    console.log(data);
+    const [ sendMessage, { data, isLoading, error } ] = useSendMessageMutation(); 
+    console.log('sendMessage result:', { data, isLoading, error });
     
   const validationSchema = yup.object().shape({
     message: yup
@@ -24,12 +24,19 @@ export const MessageForm = ({ activeChannel }) => {
     <Formik
         initialValues={{ message: '' }}
         validationSchema={validationSchema}
-        onSubmit={(values, { resetForm }) => {
-          console.log('values', values);
+        onSubmit={async (values, { resetForm }) => {
+          console.log('Form submitted with values:', values);
           
-            const message = { body: filter(values.message), channelId: activeChannel, username };
-            sendMessage(message);
-            resetForm();
+            const message = { body: filter.clean(values.message), channelId: activeChannel, username };
+            console.log('Sending message:', message);
+            
+            try {
+              const result = await sendMessage(message).unwrap();
+              console.log('Message sent successfully:', result);
+              resetForm();
+            } catch (err) {
+              console.error('Failed to send message:', err);
+            }
         }}
         >
         {({

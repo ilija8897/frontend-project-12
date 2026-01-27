@@ -22,7 +22,7 @@ export const messagesApi = createApi({
             method: 'POST',
             body: message,
         }),
-        invalidatesTags: ['Message'],
+        // invalidatesTags: ['Message'],
         }),
         deleteMessage: builder.mutation({
             query: id => ({
