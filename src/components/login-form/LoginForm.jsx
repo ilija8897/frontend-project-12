@@ -12,7 +12,6 @@ export const LoginForm = () => {
   const handleSubmit = async (values) => {
     dispatch(login(values))
   }
-  console.log(error)
 
   const errorMap = {
     401: t('login.authFailed'),

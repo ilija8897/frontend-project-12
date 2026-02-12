@@ -17,7 +17,6 @@ export const ChannelList = () => {
   const onShowChannelForm = () => {
     dispatch(toggleModal({ isOpen: true, modalType: 'create' }))
   }
-  console.log('data', data)
 
   const channelslist = data && data.map((channel, id) => {
     return (
