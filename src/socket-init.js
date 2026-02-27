@@ -2,7 +2,7 @@ import { store } from './configure-store'
 import { messagesApi } from './store/messages'
 import { channelsApi } from './store/channels'
 import { toast } from 'react-toastify'
-import { setActiveChannel } from './store/app.slice'
+import { setActiveChannel } from './store/app'
 
 export const socketInit = (socket, t) => {
   socket.on('newMessage', (payload) => {

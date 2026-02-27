@@ -46,8 +46,6 @@ const authSlice = createSlice({
         state.error = null
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log('login', action)
-
         if (action.payload.token) {
           localStorage.setItem('token', action.payload.token)
         }
@@ -78,8 +76,6 @@ const authSlice = createSlice({
       })
       .addCase(signup.rejected, (state, action) => {
         state.loadingStatus = 'rejected'
-        console.log(action)
-
         state.error = { status: action.payload.status, message: action.error.message }
       })
   },

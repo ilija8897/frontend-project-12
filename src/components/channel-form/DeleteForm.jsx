@@ -1,6 +1,5 @@
-import './ChannelForm.css'
 import { useDeleteChannelMutation } from '../../store/channels'
-import { modalSelector, toggleModal } from '../../store/app.slice'
+import { modalSelector, toggleModal } from '../../store/app'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -18,14 +17,21 @@ export const DeleteChannelForm = () => {
   }
 
   return (
-    <div className="channelForm">
-      <h4>{t('channels.deleteChannel')}</h4>
-      <button className="btn-danger" onClick={handleDeleteChannel}>
-        { t('channels.buttonModal') }
-      </button>
-      <button type="submit" onClick={onClose}>
-        {t('modals.cancel')}
-      </button>
+    <div className="modal d-block">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            {t('channels.deleteChannel')}
+          </div>
+
+          <button className="btn-danger" onClick={handleDeleteChannel}>
+            { t('channels.buttonModal') }
+          </button>
+          <button type="submit" onClick={onClose}>
+            {t('modals.cancel')}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

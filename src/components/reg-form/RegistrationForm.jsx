@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import './RegistrationForm.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { signup } from '../../store/auth.slice'
+import { signup } from '../../store/auth'
 import * as yup from 'yup'
 import { authErrorSelector } from '../../selectors/auth.selectors'
 import { useTranslation } from 'react-i18next'
@@ -21,7 +21,7 @@ export const RegistrationForm = () => {
   })
 
   return (
-    <>
+    <div className="w-50">
       <Formik
         initialValues={{ username: '', password: '', repeatPassword: '' }}
         onSubmit={handleSubmit}
@@ -48,6 +48,6 @@ export const RegistrationForm = () => {
 
         )}
       </Formik>
-    </>
+    </div>
   )
 }

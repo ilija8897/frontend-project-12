@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useGetChannelsQuery } from '../../store/channels'
-import { setActiveChannel, getActiveChannel, toggleModal } from '../../store/app.slice'
+import { setActiveChannel, getActiveChannel, toggleModal } from '../../store/app'
 import { Channel } from './Channel'
-
-import './ChannelList.css'
 
 export const ChannelList = () => {
   const dispatch = useDispatch()
@@ -26,9 +24,9 @@ export const ChannelList = () => {
 
   return (
     <>
-      <div className="channels">
+      <div className="col-3 border-end d-flex flex-column p-3">
         {channelslist}
-        <div className="addChannelButton" onClick={onShowChannelForm}>+</div>
+        <button type="button" onClick={onShowChannelForm} className="btn btn-primary">+</button>
       </div>
     </>
   )

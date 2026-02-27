@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { EditChannelPannel } from './EditChannelPannel'
-import './ChannelList.css'
 import { useTranslation } from 'react-i18next'
 
 export const Channel = ({ channel, active, handleClick }) => {
@@ -15,12 +14,12 @@ export const Channel = ({ channel, active, handleClick }) => {
     setVisibilityEditPannel(value => !value)
   }
   return (
-    <div>
-      <button onClick={onSetActiveChannel} className={active ? 'active-channel' : ''}>
+    <div className="d-flex flex-column">
+      <button onClick={onSetActiveChannel} className={active ? 'active-channel btn-primary' : 'btn-primary'}>
         #
         {channel.name}
       </button>
-      {channel.removable && <button className="editButton" onClick={handleEdit}>{t('channels.channelEdit')}</button>}
+      {channel.removable && <button className="fd-6" onClick={handleEdit}>{t('channels.channelEdit')}</button>}
       {Boolean(isVisibleEditPannel && channel.removable) && <EditChannelPannel channel={channel} />}
     </div>
   )

@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from 'formik'
 import './LoginForm.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../../store/auth.slice'
+import { login } from '../../store/auth'
 import { authErrorSelector } from '../../selectors/auth.selectors'
 import { useTranslation } from 'react-i18next'
 

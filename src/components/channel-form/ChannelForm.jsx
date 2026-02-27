@@ -1,5 +1,4 @@
-import './ChannelForm.css'
-import { modalSelector } from '../../store/app.slice'
+import { modalSelector } from '../../store/app'
 import { useSelector } from 'react-redux'
 import { DeleteChannelForm } from './DeleteForm'
 import { Form } from './Form'

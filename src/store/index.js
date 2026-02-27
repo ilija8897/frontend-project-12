@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import { appSlice } from './app.slice'
-import authSlice from './auth.slice'
+import { appSlice } from './app'
+import authSlice from './auth'
 import { channelsApi } from './channels'
 import { messagesApi } from './messages'
 

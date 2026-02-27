@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import './Home.css'
 import { ChannelList } from '../../components/channel-list'
 import { Chat } from '../../components/chat'
 
@@ -15,12 +14,12 @@ export const Home = () => {
   })
 
   return (
-    <>
+    <div className="d-flex h-100 flex-column">
       <h3>ChatReact</h3>
-      <main>
+      <main className="d-flex h-100">
         <ChannelList />
         <Chat />
       </main>
-    </>
+    </div>
   )
 }

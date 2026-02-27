@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import filter from 'leo-profanity'
 
 import { useSendMessageMutation } from '../../store/messages.js'
-import { getUserSelector } from '../../store/auth.slice.js'
+import { getUserSelector } from '../../store/auth.js'
 import { useSelector } from 'react-redux'
 
 export const MessageForm = ({ activeChannel }) => {
@@ -25,12 +25,8 @@ export const MessageForm = ({ activeChannel }) => {
       validationSchema={validationSchema}
       onSubmit={async (values, { resetForm }) => {
         const message = { body: filter.clean(values.message), channelId: activeChannel, username }
-        console.log('Sending message:', message)
-
         try {
-          const result = await sendMessage(message).unwrap()
-          console.log('Server response:', result)
-
+          await sendMessage(message).unwrap()
           resetForm()
         }
         catch (err) {
@@ -58,7 +54,7 @@ export const MessageForm = ({ activeChannel }) => {
             placeholder={t('chat.inputPlaceholder')}
           />
           {errors.message && errors.message}
-          <button type="submit" disabled={isSubmitting}>
+          <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
             {t('modals.sendButton')}
           </button>
         </form>
