@@ -2,7 +2,8 @@ import { Formik } from 'formik'
 
 import { useAddChannelMutation, useEditChannelMutation, useGetChannelsQuery } from '../../store/channels'
 import { modalSelector, toggleModal, setActiveChannel } from '../../store/app'
-import * as yup from 'yup'
+import { getChannelSchema } from '../../validators'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -19,9 +20,7 @@ export const Form = () => {
     disatch(toggleModal({ isOpen: false }))
   }
 
-  let channelSchema = yup.object().shape({
-    name: yup.string().required().min(3, t('modals.channelLengthError')).max(20, t('modals.channelLengthError')).notOneOf(data.map(channel => channel.name)),
-  })
+  let channelSchema = getChannelSchema(data, t)
   const handleAddChannel = async (values) => {
     const result = await addChannel({ name: filter.clean(values.name) })
     if (result.data) {

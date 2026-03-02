@@ -1,5 +1,6 @@
 import { Formik } from 'formik'
-import * as yup from 'yup'
+import { messageSchema } from '../../validators'
+
 import { useTranslation } from 'react-i18next'
 import filter from 'leo-profanity'
 
@@ -13,16 +14,10 @@ export const MessageForm = ({ activeChannel }) => {
 
   const [sendMessage] = useSendMessageMutation()
 
-  const validationSchema = yup.object().shape({
-    message: yup
-      .string()
-      .required(),
-  })
-
   return (
     <Formik
       initialValues={{ message: '' }}
-      validationSchema={validationSchema}
+      validationSchema={messageSchema}
       onSubmit={async (values, { resetForm }) => {
         const message = { body: filter.clean(values.message), channelId: activeChannel, username }
         try {
