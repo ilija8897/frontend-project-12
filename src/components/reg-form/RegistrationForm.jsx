@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import './RegistrationForm.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { signup } from '../../store/auth'
-import * as yup from 'yup'
+import { registrationSchema } from '../../validators'
 import { authErrorSelector } from '../../selectors/auth.selectors'
 import { useTranslation } from 'react-i18next'
 
@@ -14,18 +14,12 @@ export const RegistrationForm = () => {
     dispatch(signup(values))
   }
 
-  let registrationSchema = yup.object().shape({
-    username: yup.string().required(t('signup.required')).min(3, t('signup.nameLengthError')).max(20, t('signup.nameLengthError')),
-    password: yup.string().required(t('signup.required')).min(6, t('signup.lengthError')),
-    repeatPassword: yup.string().test('repeatPassword', t('signup.notMatch'), (value, context) => value === context.parent.password),
-  })
-
   return (
     <div className="w-50">
       <Formik
         initialValues={{ username: '', password: '', repeatPassword: '' }}
         onSubmit={handleSubmit}
-        validationSchema={registrationSchema}
+        validationSchema={registrationSchema(t)}
       >
         {({ values, isSubmitting }) => (
           <Form>
