@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 export const Login = () => {
   const { t } = useTranslation()
   return (
-    <div className="d-flex h-100 flex-column">
+    <div className="d-flex h-100 flex-column p-3 align-items-center">
       <h3>{t('login.header')}</h3>
       <LoginForm />
     </div>

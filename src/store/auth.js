@@ -32,13 +32,18 @@ const authAdapter = createEntityAdapter()
 
 const initialState = {
   isSubmitting: false,
+  isAuthentificate: false,
   username: localStorage.getItem('username') || null,
 }
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: authAdapter.getInitialState(initialState),
-  reducers: {},
+  reducers: {
+    userLogOut: (state) => {
+      state.isAuthentificate = false
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -54,9 +59,8 @@ const authSlice = createSlice({
         }
         state.loadingStatus = 'fulfilled'
         state.username = action.payload.username
+        state.isAuthentificate = true
         state.error = null
-
-        window.location.href = '/'
       })
       .addCase(login.rejected, (state, action) => {
         state.loadingStatus = 'rejected'
@@ -71,8 +75,8 @@ const authSlice = createSlice({
         }
         state.loadingStatus = 'fulfilled'
         state.username = action.payload.username
+        state.isAuthentificate = true
         state.error = null
-        window.location.href = '/'
       })
       .addCase(signup.rejected, (state, action) => {
         state.loadingStatus = 'rejected'
@@ -84,4 +88,5 @@ const authSlice = createSlice({
   },
 })
 export const { getUserSelector } = authSlice.selectors
+export const { userLogOut } = authSlice.actions
 export default authSlice

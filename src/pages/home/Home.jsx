@@ -14,7 +14,7 @@ export const Home = () => {
   })
 
   return (
-    <div className="d-flex h-100 flex-column">
+    <div className="d-flex h-100 flex-column p-3">
       <h3>ChatReact</h3>
       <main className="d-flex h-100">
         <ChannelList />
