@@ -14,9 +14,9 @@ export const EditChannelPannel = ({ channel }) => {
     dispatch(toggleModal({ isOpen: true, modalType: 'delete', editedChannel: channel }))
   }
   return (
-    <div>
-      <button className="fs-6" onClick={handleEditChannel}>{t('channels.editChannel')}</button>
-      <button className="fs-6" onClick={handleDeleteChannel}>{t('channels.remove')}</button>
+    <div className="btn-group-vertical w-100">
+      <button className="btn btn-outline-primary" onClick={handleEditChannel}>{t('channels.editChannel')}</button>
+      <button className="btn btn-outline-primary" onClick={handleDeleteChannel}>{t('channels.remove')}</button>
     </div>
   )
 }

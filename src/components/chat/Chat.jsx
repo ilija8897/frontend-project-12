@@ -27,7 +27,7 @@ export const Chat = () => {
 
   return (
     <div className="col-9 p-3">
-      <div>
+      <div style={{ minHeight: 400 }}>
         {messages}
       </div>
       <div>

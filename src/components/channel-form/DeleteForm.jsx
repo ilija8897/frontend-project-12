@@ -23,13 +23,14 @@ export const DeleteChannelForm = () => {
           <div className="modal-header">
             {t('channels.deleteChannel')}
           </div>
-
-          <button className="btn-danger" onClick={handleDeleteChannel}>
-            { t('channels.buttonModal') }
-          </button>
-          <button type="submit" onClick={onClose}>
-            {t('modals.cancel')}
-          </button>
+          <div className="modal-footer">
+            <button className="btn btn-danger" onClick={handleDeleteChannel}>
+              { t('channels.buttonModal') }
+            </button>
+            <button type="submit" className="btn btn-secondary" onClick={onClose}>
+              {t('modals.cancel')}
+            </button>
+          </div>
         </div>
       </div>
     </div>

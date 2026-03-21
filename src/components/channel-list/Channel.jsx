@@ -14,12 +14,12 @@ export const Channel = ({ channel, active, handleClick }) => {
     setVisibilityEditPannel(value => !value)
   }
   return (
-    <div className="d-flex flex-column">
-      <button onClick={onSetActiveChannel} className={active ? 'active-channel btn-primary' : 'btn-primary'}>
+    <div className="btn-group-vertical mb-2">
+      <button onClick={onSetActiveChannel} type="button" className={active ? 'active btn btn-primary' : 'btn btn-primary'}>
         #
         {channel.name}
       </button>
-      {channel.removable && <button className="fd-6" onClick={handleEdit}>{t('channels.channelEdit')}</button>}
+      {channel.removable && <button className="btn btn-info text-white" onClick={handleEdit}>{t('channels.channelEdit')}</button>}
       {Boolean(isVisibleEditPannel && channel.removable) && <EditChannelPannel channel={channel} />}
     </div>
   )
